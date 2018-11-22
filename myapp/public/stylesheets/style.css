@@ -1,7 +1,6 @@
 body {
-  width:100%;
-  padding:0px;
-  padding-top:.2%;
+
+  padding:.2%;
   margin:0px;
   background-color: rgb(150, 150, 150);
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -13,13 +12,14 @@ a {
 
 .board-tile{
   background-color: rgb(45, 133, 56);
+  border-radius: 1vh;
 }
 #game-board{
   height:95vh;
   background-color: black;
-  border-radius:2%;
+  border-radius:1.5vh;
   
-  padding:20px;
+  padding:2%;
 }
 #inner-game-board{
   background-color:#324423;
@@ -37,5 +37,4 @@ a {
   min-height:100%;
   display: grid;
   grid-template-columns: 25% 50% 25%;
-  grid-template-rows: 100%;
 }
