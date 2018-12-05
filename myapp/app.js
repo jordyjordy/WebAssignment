@@ -6,16 +6,22 @@ var port = process.argv[2];
 var app = express();
 
 app.use(express.static(__dirname + "/public"));
+
 var gameone = new game(1);
 gameone.gameBoard = gameone.newGameBoard();
+
 var server = http.createServer(app);
+
 const wss = new websocket.Server({server});
 
 wss.on("connection", function(ws){
 
     ws.on("message",function incoming(message){
-        console.log(message[0] + "," + message[2]);
-        gameone.gameBoard = gameone.newGameBoard();
+        var mes = JSON.parse(message);
+        //console.log("hi?");
+        var result = gameone.placeChip(mes.player,mes.column,mes.row);
+        console.log("hi?");
+        ws.send(JSON.stringify({result: result,column: mes.column, row:mes.row}));
 
     })
 
