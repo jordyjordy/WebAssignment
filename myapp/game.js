@@ -34,12 +34,16 @@ game.prototype.placeChip = function(string, col, row){
 game.prototype.isLegal = function(player,col,row){
 
     var legal = false;
+    
+    if(this.gameBoard[col][row] !== 'empty')
+        return legal;
 
     for(var i = -1; i <= 1; i++){
         for(var j = -1; j <= 1; j++){
 
             if(i!== 0 || j!== 0){
                 if(this.checkDirection(player,col,row,i,j)){
+
                     legal = true;
                 }
             }
@@ -48,11 +52,13 @@ game.prototype.isLegal = function(player,col,row){
     return legal;
 };
 
+
 game.prototype.checkDirection = function(player,x,y,xdir,ydir){
     var opposite;
     x -= -xdir;
     y -= -ydir;
-
+    if(x < 0 || y < 0 || x > 7 || y > 7)
+        return false;
     if( player === 'white'){
         opposite = 'black';
     }else{
@@ -62,7 +68,7 @@ game.prototype.checkDirection = function(player,x,y,xdir,ydir){
         return false;
     }
     while(this.getOwner(x,y) === opposite){
-        console.log()
+
         x+= xdir;
         y+= ydir;
     }

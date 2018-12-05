@@ -19,10 +19,12 @@ wss.on("connection", function(ws){
     ws.on("message",function incoming(message){
         var mes = JSON.parse(message);
         //console.log("hi?");
-        var result = gameone.placeChip(mes.player,mes.column,mes.row);
-        console.log("hi?");
-        ws.send(JSON.stringify({result: result,column: mes.column, row:mes.row}));
+        if(mes.type === 'move'){
+            var result = gameone.placeChip(mes.player,mes.column,mes.row);
+            ws.send(JSON.stringify({type: 'moveresult', res: result,column: mes.column, row:mes.row}));
+        }
 
+        //JSON.stringify({result: result,column: mes.column, row:mes.row}
     })
 
 })
