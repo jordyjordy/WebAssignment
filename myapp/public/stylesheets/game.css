@@ -1,0 +1,76 @@
+body {
+
+  padding:.2%;
+  margin:0px;
+  background-color: rgb(150, 150, 150);
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.board-tile{
+  background-color: rgb(45, 133, 56);
+  border-radius: 1vh;
+  margin-left:0.5%;
+  
+  border:0;
+  float:left;
+  height:100%;
+  width:12%;
+}
+
+.board-tile > img{
+  float:left;
+  margin: 0;
+  padding:0;
+  width: 100%;
+  height:100%;
+}
+.boardrow{
+  clear:both;
+  height:12%;
+  width:99%;
+  margin-bottom:.5%;
+}
+#game-board{
+  height:95vh;
+  width:95vh;
+  background-color: black;
+  border-radius:1.5vh;
+  padding:2vh;
+  margin:0;
+}
+#inner-game-board{
+  background-color:#324423;
+  width:100%;
+  height:100%;
+}
+#left-panel .outer-time-panel{
+  margin:auto;
+  margin-top:3vh;
+  width: 40vh;
+  height:18vh;
+  background: linear-gradient(#FFFFFF,#888888);
+  border-radius: 2vh;
+  padding-top:5%;
+}
+#left-panel .inner-time-panel{
+  background: linear-gradient(#888888,#FFFFFF);
+  margin:auto;
+  height:80%;
+  width:90%;
+  border-radius:1vh;
+}
+#right-panel{
+  background-color: blue;
+  margin:0;
+  padding:0;
+}
+#wrapper{
+  min-height:100%;
+  display: grid;
+  grid-template-columns:25% 50% 25%;
+}
+
