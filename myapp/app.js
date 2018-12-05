@@ -1,41 +1,29 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
+var express = require("express");
+var http = require("http");
+var websocket = require("ws");
+var game = require("./game");
+var port = process.argv[2];
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.use(express.static(__dirname + "/public"));
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+var gameone = new game(1);
+gameone.gameBoard = gameone.newGameBoard();
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+var server = http.createServer(app);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+const wss = new websocket.Server({server});
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+wss.on("connection", function(ws){
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+    ws.on("message",function incoming(message){
+        var mes = JSON.parse(message);
+        //console.log("hi?");
+        var result = gameone.placeChip(mes.player,mes.column,mes.row);
+        console.log("hi?");
+        ws.send(JSON.stringify({result: result,column: mes.column, row:mes.row}));
 
-module.exports = app;
+    })
+
+})
+server.listen(port);
