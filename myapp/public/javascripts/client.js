@@ -1,6 +1,6 @@
 
 
-var socket = new WebSocket('ws://localhost:3000');
+var socket = new WebSocket('ws://' + location.host);
 
 /*var messageTypes = {
     game_shift: "GAMESHIFT",
@@ -38,8 +38,12 @@ socket.onmessage = function(data){
             alert("Game Over!");
         }
     }else if(ms.type === 'color'){
+        alert(' color set to ' + ms.color );
         var color = ms.color;
+    }else{
+
     }
+    
 }
 var boardSize = 8;
 var color;

@@ -24,7 +24,7 @@ wss.on("connection", function(ws){
     let player = currentGame.addPlayer(con);
     websockets[con.id] = currentGame;
 
-    con.send({type: 'color', color: player })
+    con.send(JSON.stringify({type: 'color', color: player }));
 
     if(currentGame.hasTwoConnectedPlayers()){
         currentGame = new game(gameID++);
@@ -35,14 +35,15 @@ wss.on("connection", function(ws){
 
 
 
-    ws.on("message",function incoming(message){
-        vamessage.id
+    con.on("message",function incoming(message){
+
         var mes = JSON.parse(message);
-        //console.log("hi?");
+        var conGame = websockets[con.id];
+        
         if(mes.type === 'move'){
 
-            var result = currentGame.placeChip(mes.player,mes.column,mes.row);
-            ws.send(JSON.stringify({type: 'moveresult', changes: result,column: mes.column, row:mes.row}));
+            var result = conGame.placeChip(mes.player,mes.column,mes.row);
+            con.send(JSON.stringify({type: 'moveresult', changes: result,column: mes.column, row:mes.row}));
 
             var opponent;
 
@@ -50,16 +51,18 @@ wss.on("connection", function(ws){
 
                 opponent = 'black';
 
-            }else{
+            }
+            else{
 
                 opponent = 'white';
 
             }
-            if(currentGame.isGameOver(opponent)){
+
+            if(conGame.isGameOver(opponent)){
                 
                 setTimeout(function() {
-                    ws.send(JSON.stringify({type: 'gamestate', state:'gameover'}));
-                }, 1000);
+                    con.send(JSON.stringify({type: 'gamestate', state:'gameover'}));
+                }, 500);
             }
         }
 

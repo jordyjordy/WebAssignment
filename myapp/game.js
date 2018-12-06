@@ -3,12 +3,8 @@ var game = function (gameID) {
     this.black = null;
     this.id = gameID;
     this.gameBoard = null;
-    var currentPlayer = this.white;
+    this.currentPlayer = 'white' ;
 };
-
-
-var currentPlayer = this.white
-
 
 game.prototype.newGameBoard = function (){
     var board = new Array(8);
@@ -27,9 +23,13 @@ game.prototype.newGameBoard = function (){
 }
 
 game.prototype.placeChip = function(color, col, row){
+    var changes = new Array();
+
+    if(color !== this.currentPlayer)
+        return changes;
 
     var directions = this.isLegal(color,col,row);
-    var changes = new Array();
+    
     if(directions.length !== 0){
 
         for(var i = 0; i < directions.length; i++){
