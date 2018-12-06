@@ -9,11 +9,26 @@
 
     <body>
         <div id="left">
-            <div id="howto"></div>
+            <div id="howto">How To</div>
+            <p>Total amount of games played: <% amount-games %></p> <!-- %-teken notatie? -->
+            <p>Total amount of...: <span></span> </p>
+        </div>
+
+        <h1>REVERSI</h1>
+        <div id="tutorial">
+            <p>Try to fill the board with as many chips of your colours as you can!</p> 
+            <p>A chip must be placed so that there exists a chip of another colour between 
+            it and an anchcoring of the player's colour chip.
+            The chips between with another colour will be flipped. This can go horizontally,
+            vertically and diagonally.
+            </p>
+            <p>The game is over when there are no moves left or when all chips have been captured by one colour.</p>
         </div>
 
         <div id ="right">
-            <div id="play"></div>
+            <div id="play">Play</div>
+            <p>Total time spent in games: <span></span></p>
+            <p>Win ratio white/black: <span></span></p>
         </div>
 
     </body>
