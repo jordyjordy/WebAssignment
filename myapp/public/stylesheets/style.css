@@ -1,5 +1,4 @@
 body {
-
   padding:.2%;
   margin:0px;
   background-color: rgb(150, 150, 150);
@@ -28,7 +27,7 @@ a {
   padding:0;
   width: 100%;
   height:100%;
-  animation:
+  /*animation:*/
 }
 .boardrow{
   clear:both;
@@ -65,4 +64,3 @@ a {
     height:100%;
   padding:0%;}
 }
-

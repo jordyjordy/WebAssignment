@@ -1,20 +1,26 @@
 <!doctype HTML>
 <html>
     <head>
-        <title>
-
-        </title>
-        <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+        <title>Reversi</title>
+        <link rel="stylesheet" type="text/css" href="./stylesheets/splash.css">
     </head>
 
     <body>
-        <div id="left">
-            <div id="howto">How To</div>
-            <p>Total amount of games played: <% amount-games %></p> <!-- %-teken notatie? -->
-            <p>Total amount of...: <span></span> </p>
+        <div id="left" class="side">
+
+            <div id="howto" class="button">
+                <img src="./images/white.png"/>
+                <div><button onclick="showTutorial()">How To</button></div>
+            </div>
+            
+            <h1 id="rev" class="title">Rev</h1>
+
+            <div class="stat">
+                <p>Total amount of games played: <span></span></p>
+                <p>Amount of games in progress: <span></span> </p>
+            </div>
         </div>
 
-        <h1>REVERSI</h1>
         <div id="tutorial">
             <p>Try to fill the board with as many chips of your colours as you can!</p> 
             <p>A chip must be placed so that there exists a chip of another colour between 
@@ -23,14 +29,33 @@
             vertically and diagonally.
             </p>
             <p>The game is over when there are no moves left or when all chips have been captured by one colour.</p>
+
+            <button onclick="hideTutorial()">Ok</button>
         </div>
 
-        <div id ="right">
-            <div id="play">Play</div>
-            <p>Total time spent in games: <span></span></p>
-            <p>Win ratio white/black: <span></span></p>
+        <div id ="right" class="side">
+
+            <div id="play" class="button">
+                <img src="./images/black.png" />
+                <div><a href="./game.html">Play</a></div>
+            </div>
+
+            <h1 id="ersi" class="title">ersi</h1>
+
+            <div class="stat">
+                <p>Total time spent in games: <span></span></p>
+                <p>Win ratio white/black: <span></span></p>
+            </div>
         </div>
 
+        <script>
+            function hideTutorial(){
+                document.getElementById("tutorial").style.display = "none";
+            }
+            function showTutorial(){
+                document.getElementById("tutorial").style.display = "block";
+            }
+        </script>
     </body>
 
 
