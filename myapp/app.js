@@ -21,12 +21,15 @@ var websockets = {};
 wss.on("connection", function(ws){
     let con = ws;
     con.id = connectionID++;
-    let player = currentGame.addPlayer(con);
+    con.color = currentGame.addPlayer(con);
     websockets[con.id] = currentGame;
 
-    con.send(JSON.stringify({type: 'color', color: player }));
+    con.send(JSON.stringify({type: 'color', color: con.color }));
 
     if(currentGame.hasTwoConnectedPlayers()){
+        currentGame.gameState = 'playing';
+        console.log("player 2 joined, starting game");
+        currentGame.white.send(JSON.stringify({type: 'gamestate', state:'gamestarted'}));
         currentGame = new game(gameID++);
     }
 
@@ -36,32 +39,25 @@ wss.on("connection", function(ws){
 
 
     con.on("message",function incoming(message){
-
         var mes = JSON.parse(message);
         var conGame = websockets[con.id];
         
         if(mes.type === 'move'){
+            console.log("returning move to " + con.color);
+            var result = conGame.placeChip(con,mes.column,mes.row);
 
-            var result = conGame.placeChip(mes.player,mes.column,mes.row);
-            con.send(JSON.stringify({type: 'moveresult', changes: result,column: mes.column, row:mes.row}));
+            conGame.white.send(JSON.stringify({type: 'moveresult',color: con.color, changes: result,column: mes.column, row:mes.row}));
+            conGame.black.send(JSON.stringify({type: 'moveresult',color: con.color, changes: result,column: mes.column, row:mes.row}));
 
-            var opponent;
+            console.log(conGame.currentColor + " can do a move");
 
-            if(mes.player === 'white'){
-
-                opponent = 'black';
-
-            }
-            else{
-
-                opponent = 'white';
-
-            }
-
-            if(conGame.isGameOver(opponent)){
+            if(result.length !== 0 && conGame.isGameOver(conGame.currentColor)){
                 
                 setTimeout(function() {
-                    con.send(JSON.stringify({type: 'gamestate', state:'gameover'}));
+
+                    conGame.white.send(JSON.stringify({type: 'gamestate', state:'gameover'}));
+                    conGame.black.send(JSON.stringify({type: 'gamestate', state:'gameover'}));
+                    
                 }, 500);
             }
         }
