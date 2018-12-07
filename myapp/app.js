@@ -49,9 +49,9 @@ wss.on("connection", function(ws){
             conGame.white.send(JSON.stringify({type: 'moveresult',color: con.color, changes: result,column: mes.column, row:mes.row}));
             conGame.black.send(JSON.stringify({type: 'moveresult',color: con.color, changes: result,column: mes.column, row:mes.row}));
 
-            console.log(conGame.currentPlayer + " can do a move");
+            console.log(conGame.currentColor + " can do a move");
 
-            if(result.length !== 0 && conGame.isGameOver(conGame.currentPlayer)){
+            if(result.length !== 0 && conGame.isGameOver(conGame.currentColor)){
                 
                 setTimeout(function() {
 

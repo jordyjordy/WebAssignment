@@ -3,7 +3,7 @@ var game = function (gameID) {
     this.black = null;
     this.id = gameID;
     this.gameBoard = null;
-    this.currentPlayer = 'white';
+    this.currentColor = 'white';
     this.gameState = 'waiting';
 };
 
@@ -26,7 +26,7 @@ game.prototype.newGameBoard = function (){
 game.prototype.placeChip = function(player, col, row){
     var changes = new Array();
 
-    if(player.color !== this.currentPlayer || this.gameState !== 'playing'){
+    if(player.color !== this.currentColor || this.gameState !== 'playing'){
 
         return changes;
     }
@@ -46,18 +46,8 @@ game.prototype.placeChip = function(player, col, row){
 
         this.gameBoard[col][row] = player.color;
 
-        console.log("Current player is " + player.color);
-        if(player.color === 'white'){
+        this.currentColor = (player.color === 'white')?'black':'white';
 
-            this.currentPlayer = 'black';
-            console.log("switched current player to " + this.currentPlayer);
-        }
-        else if(player.color === 'black'){
-            this.currentPlayer = 'white';
-            console.log("switched current player to white");
-        }else{
-            console.log("wut");
-        }
     } 
     return changes;
 };
