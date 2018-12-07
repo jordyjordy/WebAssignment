@@ -14,7 +14,7 @@ socket.onmessage = function(data){
         if(ms.changes.length !== 0){
             var id =  '#' + String.fromCharCode(ms.row+65);
             id += (ms.column+1);
-            $(id).append("<img src ='./images/" + color + ".png'  />");
+            $(id).append("<img src ='./images/" + ms.color + ".png'  />");
 
             for(var i = 0; i < ms.changes.length;i++){
                 var temp = ms.changes[i];
@@ -23,23 +23,20 @@ socket.onmessage = function(data){
                 id2 += (temp[0]+1);
                 $(id2).empty();
             
-                $(id2).append("<img src ='./images/" + color + ".png'  />");
+                $(id2).append("<img src ='./images/" + ms.color + ".png'  />");
             }
-
-            if(color === 'white')
-                color = 'black';
-            else
-                color = 'white';
         }      
     }else if(ms.type === 'gamestate'){
 
         if(ms.state === 'gameover'){
 
             alert("Game Over!");
+        }else if(ms.state === 'gamestarted'){
+            alert("another player joined, you can now play!");
         }
     }else if(ms.type === 'color'){
         alert(' color set to ' + ms.color );
-        var color = ms.color;
+        color = ms.color;
     }else{
 
     }

@@ -3,7 +3,8 @@ var game = function (gameID) {
     this.black = null;
     this.id = gameID;
     this.gameBoard = null;
-    this.currentPlayer = 'white' ;
+    this.currentPlayer = 'white';
+    this.gameState = 'waiting';
 };
 
 game.prototype.newGameBoard = function (){
@@ -22,27 +23,41 @@ game.prototype.newGameBoard = function (){
     return board;
 }
 
-game.prototype.placeChip = function(color, col, row){
+game.prototype.placeChip = function(player, col, row){
     var changes = new Array();
 
-    if(color !== this.currentPlayer)
-        return changes;
+    if(player.color !== this.currentPlayer || this.gameState !== 'playing'){
 
-    var directions = this.isLegal(color,col,row);
+        return changes;
+    }
+
+    var directions = this.isLegal(player.color,col,row);
     
     if(directions.length !== 0){
-
+        
         for(var i = 0; i < directions.length; i++){
-            var temp = this.placeInDirection(color,col,row, directions[i][0],directions[i][1]);
+            var temp = this.placeInDirection(player.color,col,row, directions[i][0],directions[i][1]);
 
             for(var x = 0; x < temp.length; x++){
                 changes.push(temp[x]);
             }
         }
-        console.log("valid move");
-        this.gameBoard[col][row] = color;
 
-        return changes;
+
+        this.gameBoard[col][row] = player.color;
+
+        console.log("Current player is " + player.color);
+        if(player.color === 'white'){
+
+            this.currentPlayer = 'black';
+            console.log("switched current player to " + this.currentPlayer);
+        }
+        else if(player.color === 'black'){
+            this.currentPlayer = 'white';
+            console.log("switched current player to white");
+        }else{
+            console.log("wut");
+        }
     } 
     return changes;
 };
@@ -65,20 +80,26 @@ game.prototype.placeInDirection = function(color,col,row, xdir,ydir){
 }
 
 game.prototype.isGameOver = function(color){
+    if(this.gameState !== 'playing'){
+        console.log("we arent even playing!");
+        return false
+    }
+    console.log("checking if gameover");
     for(var x = 0; x < 8; x++){
         for(var y = 0; y < 8; y++){
             if(this.gameBoard[x][y] === 'empty'){
+                
                 if(this.isLegal(color,x,y).length !== 0){
                     return false;
                 }
             }
         }
     }
-    console.log("found no valid moves");
+    
     return true;
 }
 
-game.prototype.isLegal = function(player,col,row){
+game.prototype.isLegal = function(color,col,row){
 
     var directions = [];
     
@@ -89,8 +110,8 @@ game.prototype.isLegal = function(player,col,row){
         for(var j = -1; j <= 1; j++){
 
             if(i!== 0 || j!== 0){
-                if(this.checkDirection(player,col,row,i,j)){
-
+                if(this.checkDirection(color,col,row,i,j)){
+                    console.log("found direction");
                     directions.push([i,j]);
                 }
             }
@@ -100,17 +121,20 @@ game.prototype.isLegal = function(player,col,row){
 };
 
 
-game.prototype.checkDirection = function(player,x,y,xdir,ydir){
+game.prototype.checkDirection = function(color,x,y,xdir,ydir){
     var opposite;
     x += xdir;
     y += ydir;
+
     if(x < 0 || y < 0 || x > 7 || y > 7)
         return false;
-    if( player === 'white'){
+
+    if(color === 'white'){
         opposite = 'black';
-    }else{
+    }else if( color === 'black'){
         opposite = 'white';
     }
+
     if(this.getOwner(x,y) !== opposite){
         return false;
     }
@@ -120,7 +144,7 @@ game.prototype.checkDirection = function(player,x,y,xdir,ydir){
         if(x < 0 || y < 0 || x > 7 || y > 7) 
             return false;
     }
-    return this.getOwner(x,y) === player;
+    return this.getOwner(x,y) === color;
 
 }
 game.prototype.addPlayer = function(p){
