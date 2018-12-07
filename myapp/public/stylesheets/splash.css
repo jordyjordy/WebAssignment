@@ -80,7 +80,6 @@ body {
   #tutorial{
     background-color: rgb(45, 133, 56);
     border-radius: 1vh;
-    padding: 20px;
     position: absolute;
     z-index: 3;
     top:0;
@@ -96,6 +95,9 @@ body {
     text-align: center;
     
   }
+  #tutorial p:first-child{
+    font-weight: bold;
+  }
   #tutorial button{
     background-color: white;
     border:none;
@@ -103,6 +105,7 @@ body {
     height:30px;
     width:60px;
     font-weight: bold;
+    display: none;
   }
   #tutorial button:hover{
     background-color: black;
