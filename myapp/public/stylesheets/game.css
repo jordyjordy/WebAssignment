@@ -10,6 +10,58 @@ body {
 a {
   color: #00B7FF;
 }
+#waiting{
+  position: absolute;
+  background-color: grey;
+  z-index: 3;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  margin:auto;
+  margin-top:20vh;
+  width:30vw;
+  height:30vh;
+  padding:20px 40px 10px;
+  text-align: center;
+  display: none;
+
+}
+#started{
+  position: absolute;
+  background-color: grey;
+  z-index: 3;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  margin:auto;
+  margin-top:20vh;
+  width:30vw;
+  height:30vh;
+  padding:20px 40px 10px;
+  text-align: center;
+  display: none;
+
+}
+
+#startedblack{
+  position: absolute;
+  background-color: grey;
+  z-index: 3;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  margin:auto;
+  margin-top:20vh;
+  width:30vw;
+  height:30vh;
+  padding:20px 40px 10px;
+  text-align: center;
+  display: none;
+
+}
 
 .board-tile{
   background-color: rgb(45, 133, 56);
@@ -86,13 +138,46 @@ a {
   grid-template-columns:25% 50% 25%;
 }
 #left-score{
-  font-size:200px;
+  clear:both;
+  font-size:9vw;
   position: absolute;
   bottom: 20px;
   width:auto;
   margin: auto;
 }
+#right-score{
+  clear:both;
+  font-size:9vw;
+  position: absolute;
+  bottom: 20px;
+  width:auto;
+  margin: auto;
+}
+#left-arrow{
+  position:absolute;
+  bottom:150px;
+  width:auto;
+  margin:auto;
+}
+#right-arrow{
+  position:absolute;
+  bottom:150px;
+  width:auto;
+  margin:auto;
+  display:none;
+}
 #left-score img{
   float: right;
   bottom: 20px;
+}
+#right-score img{
+  float: right;
+  bottom: 20px;
+}
+#leftarrow img{
+  
+}
+#rightarrow img{
+ 
+  
 }

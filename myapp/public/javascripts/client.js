@@ -1,5 +1,7 @@
 
 
+
+
 var socket = new WebSocket('ws://' + location.host);
 
 /*var messageTypes = {
@@ -11,34 +13,40 @@ socket.onmessage = function(data){
     var ms = JSON.parse(data.data);
     if(ms.type === 'moveresult'){
 
+        handleMovement(ms);
         if(ms.changes.length !== 0){
-            var id =  '#' + String.fromCharCode(ms.row+65);
-            id += (ms.column+1);
-            $(id).append("<img src ='./images/" + ms.color + ".png'  />");
-
-            for(var i = 0; i < ms.changes.length;i++){
-                var temp = ms.changes[i];
+            handleTurnArrow(ms);
+        }
     
-                var id2 = '#' + String.fromCharCode(temp[1]+65);
-                id2 += (temp[0]+1);
-                $(id2).empty();
-            
-                $(id2).append("<img src ='./images/" + ms.color + ".png'  />");
-            }
-        }      
     }else if(ms.type === 'gamestate'){
 
         if(ms.state === 'gameover'){
 
-            alert("Game Over!");
-        }else if(ms.state === 'gamestarted'){
-            alert("another player joined, you can now play!");
+            alert("game over!");
         }
-    }else if(ms.type === 'color'){
-        alert(' color set to ' + ms.color );
-        color = ms.color;
-    }else{
+        else if(ms.state === 'gamestarted'){
 
+            $('#waiting').hide();
+            $('#started').show();
+        }
+
+    }
+    else if(ms.type === 'color'){
+
+        color = ms.color;
+        //alert(color);
+        if(color === 'white'){
+            //alert('hi');
+            $('#waiting').show();
+
+        }else{
+
+            $('#startedblack').show();
+
+        }
+
+    }else if(ms.type === 'score'){
+        handleScoreChange(ms);
     }
     
 }
@@ -54,3 +62,46 @@ $(document).ready(function(){
     })
 
 })
+
+function gameStarted(id){
+    //alert(id);
+    $(id).hide();
+}
+
+function handleMovement(ms){
+            
+    if(ms.changes.length !== 0){
+        var id =  '#' + String.fromCharCode(ms.row+65);
+        id += (ms.column+1);
+        $(id).append("<img src ='./images/" + ms.color + ".png'  />");
+
+        for(var i = 0; i < ms.changes.length;i++){
+            var temp = ms.changes[i];
+
+            var id2 = '#' + String.fromCharCode(temp[1]+65);
+            id2 += (temp[0]+1);
+            $(id2).empty();
+        
+            $(id2).append("<img src ='./images/" + ms.color + ".png'  />");
+        }
+    }  
+}
+
+function handleScoreChange(ms){
+
+    $('#blackscore').text(ms.black);
+    $('#whitescore').text(ms.white);
+}
+
+function handleTurnArrow(ms){
+    alert("changing arrows");
+    if(ms.color === 'white'){
+        
+        $('#black-arrow').show();
+        $('#white-arrow').hide();
+
+    }else{
+        $('#black-arrow').html().hide();
+        $('#white-arrow').html().show();
+    }
+}

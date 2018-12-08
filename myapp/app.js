@@ -43,16 +43,21 @@ wss.on("connection", function(ws){
         var conGame = websockets[con.id];
         
         if(mes.type === 'move'){
+            if(conGame.gameState !== 'playing'){
+                console.log("not playing yet!");
+                return;
+            }
             console.log("returning move to " + con.color);
             var result = conGame.placeChip(con,mes.column,mes.row);
 
             conGame.white.send(JSON.stringify({type: 'moveresult',color: con.color, changes: result,column: mes.column, row:mes.row}));
             conGame.black.send(JSON.stringify({type: 'moveresult',color: con.color, changes: result,column: mes.column, row:mes.row}));
-
+            conGame.white.send(JSON.stringify({type: 'score', black:conGame.black.score,white:conGame.white.score}));
+            conGame.black.send(JSON.stringify({type: 'score', black:conGame.black.score,white:conGame.white.score}));
             console.log(conGame.currentColor + " can do a move");
 
-            if(result.length !== 0 && conGame.isGameOver(conGame.currentColor)){
-                
+            if(conGame.isGameOver(conGame.currentColor)){
+                console.log('should be game over');
                 setTimeout(function() {
 
                     conGame.white.send(JSON.stringify({type: 'gamestate', state:'gameover'}));

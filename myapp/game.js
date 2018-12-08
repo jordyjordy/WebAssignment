@@ -31,6 +31,10 @@ game.prototype.placeChip = function(player, col, row){
         return changes;
     }
 
+    var opponent = (player === this.white)?this.black:this.white;
+    console.log("opponentsscore: "+ opponent.score)
+    console.log("playersscore: "+ player.score)
+
     var directions = this.isLegal(player.color,col,row);
     
     if(directions.length !== 0){
@@ -40,12 +44,17 @@ game.prototype.placeChip = function(player, col, row){
 
             for(var x = 0; x < temp.length; x++){
                 changes.push(temp[x]);
+                player.score += 1;
+                opponent.score -= 1;
             }
         }
+        
 
 
         this.gameBoard[col][row] = player.color;
-
+        player.score +=1;
+        console.log("opponentsscore: "+ opponent.score)
+        console.log("playersscore: "+ player.score)
         this.currentColor = (player.color === 'white')?'black':'white';
 
     } 
@@ -140,9 +149,11 @@ game.prototype.checkDirection = function(color,x,y,xdir,ydir){
 game.prototype.addPlayer = function(p){
     if(this.white === null){
         this.white = p;
+        this.white.score = 2;
         return 'white';
     }else if(this.black === null){
         this.black = p;
+        this.black.score = 2;
         return 'black';
     }else{
         return new error("Invalid call to addPlayer, both already added");
