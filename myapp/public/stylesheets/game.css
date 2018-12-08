@@ -25,7 +25,7 @@ a {
   height:30vh;
   padding:20px 40px 10px;
   text-align: center;
-  display: none;
+  display:none;
 
 }
 #started{
@@ -42,7 +42,8 @@ a {
   height:30vh;
   padding:20px 40px 10px;
   text-align: center;
-  display: none;
+  display:none;
+
 
 }
 
@@ -60,7 +61,8 @@ a {
   height:30vh;
   padding:20px 40px 10px;
   text-align: center;
-  display: none;
+  display:none;
+
 
 }
 
@@ -218,6 +220,9 @@ p::after{
 .arrow img{
   height: 10vh;
   width: auto;
+}
+#right-arrow{
+  opacity:0;
 }
 @keyframes up-down{
   0% {top:45vh;}

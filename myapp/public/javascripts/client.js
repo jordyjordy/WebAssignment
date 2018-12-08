@@ -25,7 +25,6 @@ socket.onmessage = function(data){
             alert("game over!");
         }
         else if(ms.state === 'gamestarted'){
-            alert('starting game');
             $('#waiting').hide();
             $('#started').show();
         }
@@ -36,7 +35,6 @@ socket.onmessage = function(data){
         color = ms.color;
         //alert(color);
         if(color === 'white'){
-            alert('waiting for p2');
             $('#waiting').show();
 
         }else{
@@ -94,14 +92,11 @@ function handleScoreChange(ms){
 }
 
 function handleTurnArrow(ms){
-    alert("changing arrows");
     if(ms.color === 'white'){
-        
-        $('#black-arrow').show();
-        $('#white-arrow').hide();
-
+        $('#right-arrow').css('opacity', '1');
+        $('#left-arrow').css('opacity', '0');
     }else{
-        $('#black-arrow').html().hide();
-        $('#white-arrow').html().show();
+        $('#right-arrow').css('opacity', '0');
+        $('#left-arrow').css('opacity', '1');
     }
 }
