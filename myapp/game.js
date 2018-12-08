@@ -146,6 +146,7 @@ game.prototype.checkDirection = function(color,x,y,xdir,ydir){
     return this.getOwner(x,y) === color;
 
 }
+
 game.prototype.addPlayer = function(p){
     if(this.white === null){
         this.white = p;
