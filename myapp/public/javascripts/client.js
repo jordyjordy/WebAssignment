@@ -25,7 +25,7 @@ socket.onmessage = function(data){
             alert("game over!");
         }
         else if(ms.state === 'gamestarted'){
-
+            alert('starting game');
             $('#waiting').hide();
             $('#started').show();
         }
@@ -36,7 +36,7 @@ socket.onmessage = function(data){
         color = ms.color;
         //alert(color);
         if(color === 'white'){
-            //alert('hi');
+            alert('waiting for p2');
             $('#waiting').show();
 
         }else{
