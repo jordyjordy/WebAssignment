@@ -2,6 +2,7 @@ body {
   color: white;
   padding:.2%;
   margin:0px;
+  margin-top: -18px;
   background-image: linear-gradient(45deg, #c96478 25%, #bd576f 25%, #bd576f 50%, #c96478 50%, #c96478 75%, #bd576f 75%, #bd576f 100%);
   background-size: 16.97px 16.97px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;

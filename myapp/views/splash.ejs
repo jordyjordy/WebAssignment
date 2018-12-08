@@ -17,10 +17,22 @@
             <h1 id="rev" class="title">Rev</h1>
 
             <div class="stat">
-                <!-- These are now in the splash.ejs
-                <p>Total amount of games played: <span></span></p>
-                <p>Amount of games in progress: <span></span> </p>
-                -->
+                <p>Total amount of games played: 
+			<%= gamesPlayed %>
+				<%if (gamesPlayed != 1){
+					games
+				<%} else {%>
+					game
+				<%} %>
+		</p>
+                <p>Amount of games in progress: 
+			<%= gamesInProgress %>
+				<%if gamesPlayed != 1){
+					games
+				<%} else {%>
+					game
+				<%} %>
+		</p>
             </div>
         </div>
 
@@ -46,10 +58,12 @@
             <h1 id="ersi" class="title">ersi</h1>
 
             <div class="stat">
-                <!-- These are now in the splash.ejs
-                <p>Total time spent in games: <span></span></p>
-                <p>Win ratio white/black: <span></span></p>
-                -->
+                <p>Total time spent in games: 
+			<%= timeSpent %> seconds
+		</p>
+                <p>Win ratio white/black: 
+			<%= whiteWins %> / <%= blackWins %>
+		</p>
             </div>
         </div>
 
