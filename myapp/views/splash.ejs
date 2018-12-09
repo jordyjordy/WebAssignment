@@ -11,7 +11,7 @@
 
             <div id="howto" class="button">
                 <img src="./images/white.png"/>
-                <div><button onclick="showTutorial()">How To</button></div>
+                <div><button onclick="showTutorial();">How To</button></div>
             </div>
             
             <h1 id="rev" class="title">Rev</h1>
@@ -19,19 +19,19 @@
             <div class="stat">
                 <p>Total amount of games played: 
 			<%= gamesPlayed %>
-				<%if (gamesPlayed != 1){
+				<%if (gamesPlayed != 1) { %>
 					games
-				<%} else {%>
+				<% } else {%>
 					game
-				<%} %>
+				<% } %>
 		</p>
                 <p>Amount of games in progress: 
 			<%= gamesInProgress %>
-				<%if gamesPlayed != 1){
-					games
-				<%} else {%>
-					game
-				<%} %>
+                <%if (gamesPlayed != 1) { %>
+                    games
+                <% } else {%>
+                  game
+                <% } %>
 		</p>
             </div>
         </div>
@@ -45,7 +45,7 @@
             </p>
             <p>The game is over when there are no moves left or when all chips have been captured by one colour.</p>
 
-            <button onclick="hideTutorial()">OK</button>
+            <button onclick="hideTutorial();">OK</button>
         </div>
 
         <div id ="right" class="side">
@@ -58,12 +58,17 @@
             <h1 id="ersi" class="title">ersi</h1>
 
             <div class="stat">
-                <p>Total time spent in games: 
-			<%= timeSpent %> seconds
-		</p>
+                <p>Amount of games quit before finishing:
+                    <%= gamesCancelled %>
+                    <%if (gamesCancelled != 1) { %>
+                        games
+                    <% } else {%>
+                        game
+                    <% } %>
+		        </p>
                 <p>Win ratio white/black: 
-			<%= whiteWins %> / <%= blackWins %>
-		</p>
+			        <%= whiteWins %> / <%= blackWins %>
+		        </p>
             </div>
         </div>
 

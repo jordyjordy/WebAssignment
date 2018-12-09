@@ -22,11 +22,15 @@ socket.onmessage = function(data){
 
         if(ms.state === 'gameover'){
 
-            alert("game over!");
+            $('#victor').append(ms.winner);
+            $('#endofgame').show();
+
         }
         else if(ms.state === 'gamestarted'){
             $('#waiting').hide();
             $('#started').show();
+        }else if(ms.state ==='quit'){
+            $('#quit').show();
         }
 
     }
@@ -38,7 +42,6 @@ socket.onmessage = function(data){
             $('#waiting').show();
 
         }else{
-
             $('#startedblack').show();
 
         }
@@ -46,6 +49,10 @@ socket.onmessage = function(data){
     }else if(ms.type === 'score'){
         handleScoreChange(ms);
     }
+    
+}
+
+socket.onclose = function(){
     
 }
 var boardSize = 8;
@@ -99,4 +106,8 @@ function handleTurnArrow(ms){
         $('#right-arrow').css('opacity', '0');
         $('#left-arrow').css('opacity', '1');
     }
+}
+
+function goToSplash(){
+    
 }
