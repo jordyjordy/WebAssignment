@@ -140,14 +140,12 @@ wss.on("connection", function(ws){
 
     //what we should do if one of the clients decide to disconnect
     con.on("close", function closing(code){
-        console.log("HELLO");
         //make sure the client closed? this is from the github examples
         if (code == "1001") {
             let game = websockets[con.id];
-            console.log('closing game');
 
             if(game.gameState === 'waiting'){
-                console.log("person was waiting");
+
                 currentGame.clearPlayers();
             }
             //we only want to take some action if the game is not over yet.
