@@ -161,6 +161,12 @@ game.prototype.addPlayer = function(p){
     }
 }
 
+game.prototype.clearPlayers = function(){
+    this.white = null;
+    this.black = null;
+    console.log("cleared players");
+}
+
 game.prototype.hasTwoConnectedPlayers = function(){
     return this.white !== null && this.black !== null;
 }
