@@ -32,8 +32,8 @@ game.prototype.placeChip = function(player, col, row){
     }
 
     var opponent = (player === this.white)?this.black:this.white;
-    console.log("opponentsscore: "+ opponent.score)
-    console.log("playersscore: "+ player.score)
+    //console.log("opponentsscore: "+ opponent.score)
+    //console.log("playersscore: "+ player.score)
 
     var directions = this.isLegal(player.color,col,row);
     
@@ -53,8 +53,8 @@ game.prototype.placeChip = function(player, col, row){
 
         this.gameBoard[col][row] = player.color;
         player.score +=1;
-        console.log("opponentsscore: "+ opponent.score)
-        console.log("playersscore: "+ player.score)
+        //console.log("opponentsscore: "+ opponent.score)
+        //console.log("playersscore: "+ player.score)
         this.currentColor = (player.color === 'white')?'black':'white';
 
     } 
@@ -80,10 +80,10 @@ game.prototype.placeInDirection = function(color,col,row, xdir,ydir){
 
 game.prototype.isGameOver = function(color){
     if(this.gameState !== 'playing'){
-        console.log("we arent even playing!");
+        //console.log("we arent even playing!");
         return false
     }
-    console.log("checking if gameover");
+    //console.log("checking if gameover");
     for(var x = 0; x < 8; x++){
         for(var y = 0; y < 8; y++){
             if(this.gameBoard[x][y] === 'empty'){
@@ -110,7 +110,7 @@ game.prototype.isLegal = function(color,col,row){
 
             if(i!== 0 || j!== 0){
                 if(this.checkDirection(color,col,row,i,j)){
-                    console.log("found direction");
+                    //console.log("found direction");
                     directions.push([i,j]);
                 }
             }

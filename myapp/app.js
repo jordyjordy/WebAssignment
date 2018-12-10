@@ -37,6 +37,21 @@ const wss = new websocket.Server({server});
 
 var websockets = {};
 
+setInterval(function() {
+    for(let i in websockets){
+        if(websockets.hasOwnProperty(i)){
+            let game = websockets[i];
+
+            //if the game is over or cancelled we will remove it from the array/list.
+            if(game.gameState === 'gameover' || game.gameState === 'cancelled'){
+                console.log("\tDeleting element "+i);
+                delete websockets[i];
+            }
+        }
+    }
+}, 50000)
+
+
 wss.on("connection", function(ws){
     let con = ws;
     con.id = connectionID++;
@@ -45,71 +60,93 @@ wss.on("connection", function(ws){
 
     con.send(JSON.stringify({type: 'color', color: con.color }));
 
+
+    //after doing currentgame.addplayer we can check if we have two connected players.
+    //if that is the case we have to create a new game and increase some stats.
     if(currentGame.hasTwoConnectedPlayers()){
+
         stats.currentGames++;
         stats.gamesPlayed++;
+
         currentGame.gameState = 'playing';
-        console.log("player 2 joined, starting game");
+
         currentGame.white.send(JSON.stringify({type: 'gamestate', state:'gamestarted'}));
+
         currentGame = new game(gameID++);
         currentGame.gameBoard = currentGame.newGameBoard();
     }
 
+    //what we should do if the client socket sends a message.
     con.on("message",function incoming(message){
+
         var mes = JSON.parse(message);
         var conGame = websockets[con.id];
         
+        //really the only message that the client will ever send, but just in case.
         if(mes.type === 'move'){
+
             if(conGame.gameState !== 'playing'){
-                console.log("not playing yet!");
+                //console.log("not playing yet!");
                 return;
             }
-            console.log("returning move to " + con.color);
+            //console.log("returning move to " + con.color);
             var result = conGame.placeChip(con,mes.column,mes.row);
 
-           
+           //if the result is not 0 we know it is a valid move, otherwise we dont even have to bother
+           //to return anything to the client,
             if(result.length !== 0){
+                //send the result to the players: tells the clients which color just made a move,
+                // which tiles change color and which tile gets a new token/chip.
                 conGame.white.send(JSON.stringify({type: 'moveresult',color: con.color, changes: result,column: mes.column, row:mes.row}));
                 conGame.black.send(JSON.stringify({type: 'moveresult',color: con.color, changes: result,column: mes.column, row:mes.row}));
+
+                //update the score on the client for both players. Could have been in the same send
+                //but otherwise it wouldve gotten quite big, any downsides? idk
                 conGame.white.send(JSON.stringify({type: 'score', black:conGame.black.score,white:conGame.white.score}));
                 conGame.black.send(JSON.stringify({type: 'score', black:conGame.black.score,white:conGame.white.score}));
-            }
+            
 
-            console.log(conGame.currentColor + " can do a move");
+            //we check if after the last valid move was made the opponent is able to make any moves.
+            //if not we end the game.
+                if(conGame.isGameOver(conGame.currentColor)){
 
-            if(conGame.isGameOver(conGame.currentColor)){
+                    conGame.gameState = 'gameover';
 
-                conGame.gameState = 'gameover';
+                    stats.gamesCompleted++;
+                    stats.currentGames--;
+                    var winner;
+                    if(conGame.black.score > conGame.white.score){
 
-                stats.gamesCompleted++;
-                stats.currentGames--;
-                var winner;
-                if(conGame.black.score > conGame.white.score){
+                        winner = 'black';
+                        stats.blackWins++
 
-                    winner = 'black';
-                    stats.blackWins++
+                    }else if(conGame.white.score > conGame.black.score){
+                        winner = 'white';
+                        stats.whiteWins++;
+                    }
+                    setTimeout(function() {
 
-                }else if(conGame.white.score > conGame.black.score){
-                    winner = 'white';
-                    stats.whiteWins++;
+                        conGame.white.send(JSON.stringify({type: 'gamestate', state:'gameover',winner: winner }));
+                        conGame.black.send(JSON.stringify({type: 'gamestate', state:'gameover',winner: winner}));
+                        conGame.white.close();
+                        conGame.black.close();
+
+                    }, 500);
                 }
-                setTimeout(function() {
-
-                    conGame.white.send(JSON.stringify({type: 'gamestate', state:'gameover',winner: winner }));
-                    conGame.black.send(JSON.stringify({type: 'gamestate', state:'gameover',winner: winner}));
-                    conGame.white.close();
-                    conGame.black.close();
-
-                }, 500);
             }
         }
 
     })
 
+    //what we should do if one of the clients decide to disconnect
     con.on("close", function closing(code){
         
+        //make sure the client closed? this is from the github examples
         if (code == "1001") {
             let game = websockets[con.id];
+
+            //we only want to take some action if the game is not over yet.
+            //otherwise it's logical that players will leave.
             if(game.gameState !== 'gameover'){
 
                 stats.currentGames --;
