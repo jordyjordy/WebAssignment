@@ -86,10 +86,10 @@ wss.on("connection", function(ws){
         if(mes.type === 'move'){
 
             if(conGame.gameState !== 'playing'){
-                //console.log("not playing yet!");
+                
                 return;
             }
-            //console.log("returning move to " + con.color);
+          
             var result = conGame.placeChip(con,mes.column,mes.row);
 
            //if the result is not 0 we know it is a valid move, otherwise we dont even have to bother
