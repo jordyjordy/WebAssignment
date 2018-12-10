@@ -17,6 +17,14 @@
             <h1 id="rev" class="title">Rev</h1>
 
             <div class="stat">
+                    <p>Amount of times you've visited this page: 
+                        <%= plays %>
+                            <%if (plays != 1) { %>
+                                times
+                            <% } else {%>
+                               time
+                            <% } %>
+                        </p>
                 <p>Total amount of games played: 
 			<%= gamesPlayed %>
 				<%if (gamesPlayed != 1) { %>

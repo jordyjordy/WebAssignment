@@ -1,6 +1,8 @@
 var express = require("express");
 var http = require("http");
 var websocket = require("ws");
+var cookie = require("cookie-parser");
+
 var game = require("./game");
 var stats = require("./statTracker");
 
@@ -10,7 +12,7 @@ var app = express();
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
-
+app.use(cookie());
 
 
 var gameID = 0
@@ -19,8 +21,14 @@ currentGame.gameBoard = currentGame.newGameBoard();
 var connectionID = 0;
 
 app.get("/", (req, res) => {
+
+    var cook = parseInt(req.cookies.plays);
+    if(cook !== cook)cook = 0;
+    else cook++;
+    res.cookie("plays",cook,{overwrite: true});
+
     res.render("splash.ejs", {gamesPlayed: stats.gamesPlayed, gamesInProgress: stats.currentGames, 
-        gamesCancelled: stats.gamesCancelled,whiteWins:stats.whiteWins ,blackWins: stats.blackWins  });
+        gamesCancelled: stats.gamesCancelled,whiteWins:stats.whiteWins ,blackWins: stats.blackWins,plays:cook});
 });
 
 var server = http.createServer(app);
