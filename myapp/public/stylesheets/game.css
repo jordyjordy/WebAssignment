@@ -28,6 +28,22 @@ a {
   display:none;
 
 }
+#fullscreenbutton{
+  position:absolute;
+  bottom:1vh;
+  left:1vh;
+  width:5vh;
+  height:3vh;
+  border-radius:1vh;
+}
+#fullscreenbutton:not(:fullscreen) {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+#fullscreenbutton:fullscreen {
+  background-color: white;
+  color: black;
+}
 
 .board-tile{
   background-color: rgb(45, 133, 56);

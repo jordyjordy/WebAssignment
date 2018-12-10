@@ -120,3 +120,30 @@ function handleTurnArrow(ms){
 function hideWarning(){
     $('#mediawarning').hide();
 }
+
+function fullscreen(){
+    alert("test");
+    if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+    (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+        alert('0');
+     if (document.body.requestFullScreen) { 
+         alert('1'); 
+       document.body.requestFullScreen();  
+     } else if (document.body.mozRequestFullScreen) {  
+        alert('2');
+       document.body.mozRequestFullScreen();  
+     } else if (document.body.webkitRequestFullScreen) {  
+        alert('3');
+       document.body.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+     }  
+   } else {  
+     if (document.cancelFullScreen) {  
+       document.cancelFullScreen();  
+     } else if (document.mozCancelFullScreen) {  
+       document.mozCancelFullScreen();  
+     } else if (document.webkitCancelFullScreen) {  
+       document.webkitCancelFullScreen();  
+     }  
+   }  
+ }
+}
