@@ -134,6 +134,12 @@ wss.on("connection", function(ws){
                     }, 500);
                 }
             }
+        }else if(mes.type === 'name'){
+            if(mes.color ===  'white'){
+                conGame.black.send(JSON.stringify({type: 'name',name:mes.name}));
+            }else{
+                conGame.white.send(JSON.stringify({type: 'name',name:mes.name}));
+            }
         }
 
     })
