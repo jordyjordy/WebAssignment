@@ -116,3 +116,7 @@ function handleTurnArrow(ms){
         $('#left-arrow').css('opacity', '1');
     }
 }
+
+function hideWarning(){
+    $('#mediawarning').hide();
+}

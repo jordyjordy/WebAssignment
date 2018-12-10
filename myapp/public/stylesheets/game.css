@@ -197,8 +197,40 @@ a.button {
   text-decoration: none;
   color: initial;
 }
+#mediawarning{
+  position: absolute;
+  background-color: #a03838;
+  z-index: 3;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  margin:auto;
+  margin-top:20vh;
+  width:30vw;
+  height:30vh;
+  padding:20px 40px 10px;
+  text-align: center;
+  display:none;
+}
 
 @keyframes up-down{
   0% {top:45vh;}
   100% {top:48vh;}
 }
+@media only screen and (max-aspect-ratio: 5/3)  {
+  #mediawarning {
+      display:block;
+  }
+}
+@media only screen and (min-aspect-ratio : 21/10)   {
+  #mediawarning {
+      display:block;
+  }
+}
+@media only screen and (max-width : 1100px)   {
+  #mediawarning {
+      display:block;
+  }
+}
+
