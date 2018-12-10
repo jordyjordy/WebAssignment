@@ -19,7 +19,8 @@ currentGame.gameBoard = currentGame.newGameBoard();
 var connectionID = 0;
 
 app.get("/", (req, res) => {
-    res.render("splash.ejs", {gamesPlayed: stats.gamesPlayed, gamesInProgress: stats.currentGames, gamesCancelled: stats.gamesCancelled,whiteWins:stats.whiteWins ,blackWins: stats.blackWins  });
+    res.render("splash.ejs", {gamesPlayed: stats.gamesPlayed, gamesInProgress: stats.currentGames, 
+        gamesCancelled: stats.gamesCancelled,whiteWins:stats.whiteWins ,blackWins: stats.blackWins  });
 });
 
 var server = http.createServer(app);
