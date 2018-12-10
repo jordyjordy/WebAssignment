@@ -11,7 +11,7 @@ body {
 a {
   color: #00B7FF;
 }
-.popup{
+#popup{
   position: absolute;
   background-color: grey;
   z-index: 3;
@@ -54,8 +54,9 @@ a {
   margin-bottom:.5%;
 }
 #game-board{
-  height:95vh;
-  width:95vh;
+  float:left;
+  height:48vw;
+  width:48vw;
   background-color: black;
   border-radius:1.5vh;
   padding:2vh;
@@ -94,13 +95,14 @@ a {
   background: linear-gradient(#000000,#1a1a1a); 
 }
 #right-panel, #left-panel{
+  float:left;
+  width:24vw;
   margin:0;
   padding:0;
 }
 #wrapper{
   min-height:100%;
-  display: grid;
-  grid-template-columns:25% 50% 25%;
+
 }
 .score{
   font-size:70px;

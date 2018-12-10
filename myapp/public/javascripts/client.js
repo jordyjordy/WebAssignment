@@ -22,29 +22,38 @@ socket.onmessage = function(data){
 
         if(ms.state === 'gameover'){
 
+            $("#popup").empty();
+            $("#popup").load("./popups/started.html");
             $('#victor').append(ms.winner);
-            $('#endofgame').show();
-
+            $("#popup").show();
         }
         else if(ms.state === 'gamestarted'){
-            $('#waiting').hide();
-            $('#started').show();
+            
+            $("#popup").empty();
+            $("#popup").load("./popups/started.html");
+            $("#popup").show();
+
         }else if(ms.state ==='quit'){
-            $('#quit').show();
+            
+            $("#popup").empty();
+            $("#popup").load("./popups/quit.html");
+            $("#popup").show();
         }
 
     }
     else if(ms.type === 'color'){
 
         color = ms.color;
-        //alert(color);
+        
         if(color === 'white'){
-            $('#waiting').show();
+            
+            $("#popup").load("./popups/waiting.html")
 
         }else{
-            $('#startedblack').show();
+            $("#popup").load("./popups/startedblack.html")
 
         }
+        $("#popup").show();
 
     }else if(ms.type === 'score'){
         handleScoreChange(ms);
@@ -69,8 +78,8 @@ $(document).ready(function(){
 })
 
 function gameStarted(id){
-    //alert(id);
-    $(id).hide();
+    $("#popup").empty()
+    $("#popup").hide();
 }
 
 function handleMovement(ms){
@@ -106,8 +115,4 @@ function handleTurnArrow(ms){
         $('#right-arrow').css('opacity', '0');
         $('#left-arrow').css('opacity', '1');
     }
-}
-
-function goToSplash(){
-    
 }
