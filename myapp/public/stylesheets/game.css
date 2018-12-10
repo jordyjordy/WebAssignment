@@ -11,7 +11,7 @@ body {
 a {
   color: #00B7FF;
 }
-#waiting{
+#popup{
   position: absolute;
   background-color: grey;
   z-index: 3;
@@ -26,43 +26,6 @@ a {
   padding:20px 40px 10px;
   text-align: center;
   display:none;
-
-}
-#started{
-  position: absolute;
-  background-color: grey;
-  z-index: 3;
-  top:0;
-  left:0;
-  bottom:0;
-  right:0;
-  margin:auto;
-  margin-top:20vh;
-  width:30vw;
-  height:30vh;
-  padding:20px 40px 10px;
-  text-align: center;
-  display:none;
-
-
-}
-
-#startedblack{
-  position: absolute;
-  background-color: grey;
-  z-index: 3;
-  top:0;
-  left:0;
-  bottom:0;
-  right:0;
-  margin:auto;
-  margin-top:20vh;
-  width:30vw;
-  height:30vh;
-  padding:20px 40px 10px;
-  text-align: center;
-  display:none;
-
 
 }
 
@@ -91,8 +54,9 @@ a {
   margin-bottom:.5%;
 }
 #game-board{
-  height:95vh;
-  width:95vh;
+  float:left;
+  height:48vw;
+  width:48vw;
   background-color: black;
   border-radius:1.5vh;
   padding:2vh;
@@ -131,13 +95,14 @@ a {
   background: linear-gradient(#000000,#1a1a1a); 
 }
 #right-panel, #left-panel{
+  float:left;
+  width:24vw;
   margin:0;
   padding:0;
 }
 #wrapper{
   min-height:100%;
-  display: grid;
-  grid-template-columns:25% 50% 25%;
+
 }
 .score{
   font-size:70px;
@@ -224,7 +189,48 @@ p::after{
 #right-arrow{
   opacity:0;
 }
+a.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: initial;
+}
+#mediawarning{
+  position: absolute;
+  background-color: #a03838;
+  z-index: 3;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  margin:auto;
+  margin-top:20vh;
+  width:30vw;
+  height:30vh;
+  padding:20px 40px 10px;
+  text-align: center;
+  display:none;
+}
+
 @keyframes up-down{
   0% {top:45vh;}
   100% {top:48vh;}
 }
+@media only screen and (max-aspect-ratio: 5/3)  {
+  #mediawarning {
+      display:block;
+  }
+}
+@media only screen and (min-aspect-ratio : 21/10)   {
+  #mediawarning {
+      display:block;
+  }
+}
+@media only screen and (max-width : 1100px)   {
+  #mediawarning {
+      display:block;
+  }
+}
+
