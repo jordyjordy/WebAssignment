@@ -8,9 +8,6 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
-}
 #popup{
   position: absolute;
   background-color: grey;
@@ -152,7 +149,7 @@ p::after{
   text-align: center;
 }
 .outer-time-panel:hover::after{
-  content: "Amount of time spent by this player";
+  content: "The name of this player";
   width:15vw;
   background-color: darkgray;
   position: absolute;
