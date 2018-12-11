@@ -30,7 +30,7 @@ socket.onmessage = function(data){
         else if(ms.state === 'gamestarted'){
             
             $("#popup").empty();
-            $("#popup").load("./popups/started.html");
+            $("#popup").load("./popups/entername.html");
             $("#popup").show();
 
         }else if(ms.state ==='quit'){
@@ -44,19 +44,30 @@ socket.onmessage = function(data){
     else if(ms.type === 'color'){
 
         color = ms.color;
+
         
         if(color === 'white'){
             
             $("#popup").load("./popups/waiting.html")
 
         }else{
-            $("#popup").load("./popups/startedblack.html")
+            $("#popup").empty();
+            $("#popup").load("./popups/entername.html");
+            $("#popup").show();
 
         }
         $("#popup").show();
+        
 
     }else if(ms.type === 'score'){
         handleScoreChange(ms);
+    }else if(ms.type ===  'name'){
+
+        if(color ===  'white'){
+            $("#right-panel > div > div").append(ms.name);
+        }else{
+            $("#left-panel > div > div").append(ms.name);
+        }
     }
     
 }
@@ -77,9 +88,17 @@ $(document).ready(function(){
 
 })
 
-function gameStarted(id){
+function gameStarted(){
+    var name = $("#name").val();
+    if(color === 'white'){
+        $("#left-panel > div > div").append(name);
+    }else{
+        $("#right-panel > div > div").append(name);
+    }
     $("#popup").empty()
     $("#popup").hide();
+    
+    socket.send(JSON.stringify({type : 'name', name:name, color:color}));
 }
 
 function handleMovement(ms){
@@ -119,4 +138,26 @@ function handleTurnArrow(ms){
 
 function hideWarning(){
     $('#mediawarning').hide();
+}
+
+function fullscreen(){
+    if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+    (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+     if (document.documentElement.requestFullScreen) { 
+       document.documentElement.requestFullScreen();  
+     } else if (document.documentElement.mozRequestFullScreen) {  
+       document.documentElement.mozRequestFullScreen();  
+     } else if (document.documentElement.webkitRequestFullScreen) {  
+       document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+     }  
+   } else {  
+     if (document.cancelFullScreen) {  
+       document.cancelFullScreen();  
+     } else if (document.mozCancelFullScreen) {  
+       document.mozCancelFullScreen();  
+     } else if (document.webkitCancelFullScreen) {  
+       document.webkitCancelFullScreen();  
+     }  
+   }  
+
 }
