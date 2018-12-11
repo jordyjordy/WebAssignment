@@ -9,20 +9,6 @@ body::before{
   color: darkgray;
   position: fixed;
 }
-#ersi::after{
-  content: "flip";
-  color: darkgray;
-  font-size: 14px;
-  position: fixed;
-  width:100%;
-  text-align: center;
-}
-#rev::after{
-  content: "chips";
-  color: darkgray;
-  font-size: 14px;
-  position: fixed;
-}
 /* splash */
 .side{
     margin: -.2%;
