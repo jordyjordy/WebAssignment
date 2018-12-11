@@ -106,7 +106,7 @@ function handleMovement(ms){
     if(ms.changes.length !== 0){
         var id =  '#' + String.fromCharCode(ms.row+65);
         id += (ms.column+1);
-        $(id).append("<img src ='./images/" + ms.color + ".png'  />");
+        $(id).append("<img  class='token' src ='./images/" + ms.color + ".png'  />");
 
         for(var i = 0; i < ms.changes.length;i++){
             var temp = ms.changes[i];
@@ -115,7 +115,7 @@ function handleMovement(ms){
             id2 += (temp[0]+1);
             $(id2).empty();
         
-            $(id2).append("<img src ='./images/" + ms.color + ".png'  />");
+            $(id2).append("<img  class='token' src ='./images/" + ms.color + ".png'  />");
         }
     }  
 }

@@ -82,6 +82,8 @@ body:fullscreen{
   padding:0;
   width: 100%;
   height:100%;
+  animation-name:appear;
+  animation-duration:1s;
 }
 .boardrow{
   clear:both;
@@ -257,6 +259,20 @@ a.button {
   text-align: center;
   display:none;
 }
+@keyframes appear{
+  0% {
+    width:0%;
+    height:0%;
+    padding:50%;
+
+  }
+  100%{
+    width:100%;
+    height:100%;
+    padding:0%;
+  }
+}
+
 
 @keyframes up-down{
   0% {top:45vh;}
