@@ -10,6 +10,11 @@ body::before{
   position: fixed;
 }
 /* splash */
+#ersi::after{
+  content: "chip flipping game";
+  font-size: 14px;
+  color: darkgray;
+}
 .side{
     margin: -.2%;
     height: 100vh;
