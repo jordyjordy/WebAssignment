@@ -9,21 +9,12 @@ body::before{
   color: darkgray;
   position: fixed;
 }
-#ersi::after{
-  content: "flip";
-  color: darkgray;
-  font-size: 14px;
-  position: fixed;
-  width:100%;
-  text-align: center;
-}
-#rev::after{
-  content: "chips";
-  color: darkgray;
-  font-size: 14px;
-  position: fixed;
-}
 /* splash */
+#ersi::after{
+  content: "chip flipping game";
+  font-size: 14px;
+  color: darkgray;
+}
 .side{
     margin: -.2%;
     height: 100vh;
